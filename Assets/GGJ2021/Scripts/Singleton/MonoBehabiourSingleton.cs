@@ -30,6 +30,7 @@ public abstract class MonoBehabiourSingleton<TThis> : MonoBehaviour where TThis 
         }
     }
 
+    
     private static void DestroyAllNonInstances()
     {
         foreach (var go in FindObjectsOfType<TThis>())
