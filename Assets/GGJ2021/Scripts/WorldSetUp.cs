@@ -19,7 +19,7 @@ public class WorldSetUp : MonoBehaviour
             if (i < 16)
             {
                 islands[i].GetComponent<Clue>().ClueType = i / 4;
-                islands[i].transform.position = new Vector3(Random.Range(0, 20) * size, 0, Random.Range(0, 20) * size);
+                islands[i].transform.position = new Vector3(Random.Range(0, 20.9f) * size, 0, Random.Range(0, 20.9f) * size);
             }
             else
             {
@@ -31,7 +31,7 @@ public class WorldSetUp : MonoBehaviour
                 {
                     if (islands[i].transform.position == islands[j].transform.position)
                     {
-                        islands[i].transform.position = new Vector3(Random.Range(0, 20)*size, 0, Random.Range(0, 20)*size);
+                        islands[i].transform.position = new Vector3(Random.Range(0, 20.9f)*size, 0, Random.Range(0, 20.9f)*size);
                         j = 0;
                     }
                     else
@@ -43,16 +43,13 @@ public class WorldSetUp : MonoBehaviour
         for (int i = 0; i<20;i++)
         {
             dive[i] = Instantiate(diveSpot);
-            dive[i].transform.position = new Vector3(Random.Range(0, 20)*size, -10, Random.Range(0, 20)*size);
-            if (i > 0)
+            dive[i].transform.position = new Vector3(Random.Range(0, 20.9f)*size, -10, Random.Range(0, 20.9f)*size);
+            for (int j = 0; j < 26; j++)
             {
-                for (int j = 0; j < i; j++)
+                if (dive[i].transform.position == islands[j].transform.position)
                 {
-                    if (dive[i].transform.position == islands[j].transform.position)
-                    {
-                        dive[i].transform.position = new Vector3(Random.Range(0, 20)*size, -10, Random.Range(0, 20)*size);
-                        j = 0;
-                    }
+                    dive[i].transform.position = new Vector3(Random.Range(0, 20.9f) * size, -10, Random.Range(0, 20.9f) * size);
+                    j = 0;
                 }
             }
         }
