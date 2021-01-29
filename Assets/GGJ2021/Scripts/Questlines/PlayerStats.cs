@@ -22,9 +22,9 @@ public class PlayerStats : MonoBehaviour
         life = 3;
     }
     
-    public void GetClue(int clue)
+    public void GetClue(int clue, int step)
     {
-        if(clue < 4)
+        if(clue < 4 && clues[clue] == step)
         {
             clues[clue]++;
             UI.NewHint(clue, clues[clue]);
@@ -33,10 +33,7 @@ public class PlayerStats : MonoBehaviour
                 //ActivateClueToEnd
             }
         }
-        else
-        {
-            UI.RepairButt(wood > 2);
-        }
+        UI.RepairButt(wood != 0);
     }
 
     public void DiveUI(GameObject diveSpot, int type)
@@ -52,6 +49,11 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    public void RepairButtOff()
+    {
+        UI.RepairScreen.SetActive(false);
+    }
+
     public void Dive()
     {
         wood++;
@@ -61,8 +63,8 @@ public class PlayerStats : MonoBehaviour
 
     public void RepairShip()
     {
-        wood = wood - 3;
-        life = 3;
+        wood = 0;
+        life++;
     }
 
     public void TakeDamage(int amount)

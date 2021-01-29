@@ -9,6 +9,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] Text[] questLine;
     [SerializeField] Text wood, life;
     [SerializeField] PlayerStats stats;
+
+    public GameObject RepairScreen { get => repairScreen; set => repairScreen = value; }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -33,10 +36,9 @@ public class UIManager : MonoBehaviour
         repairScreen.SetActive(true);
         if (canRepair)
         {
-            repairScreen.GetComponentInChildren<Button>().gameObject.SetActive(true);
-            repairScreen.GetComponentInChildren<Text>().text = "Want to repair your ship?\n\nYou will lose 3 pieces of wood";
+            repairScreen.GetComponent<Button>().interactable = true;
         }
         else
-            repairScreen.GetComponentInChildren<Text>().text = "You don't have enough pieces of\nwood to repair your ship\n\nTry to find replacements under the sea";
+            repairScreen.GetComponent<Button>().interactable = false;
     }
 }

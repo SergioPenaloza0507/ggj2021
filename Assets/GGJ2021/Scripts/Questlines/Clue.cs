@@ -5,8 +5,10 @@ using UnityEngine;
 public class Clue : MonoBehaviour
 {
     [SerializeField]private int clueType;
+    private int step;
 
     public int ClueType { get => clueType; set => clueType = value; }
+    public int Step { get => step; set => step = value; }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,7 +16,7 @@ public class Clue : MonoBehaviour
         {
             if (clueType < 5)
             {
-                other.GetComponent<PlayerStats>().GetClue(clueType);
+                other.GetComponent<PlayerStats>().GetClue(clueType, step);
                 StartCoroutine("WaitToActivate");
                 if (clueType < 4)
                     clueType = 4;
@@ -26,16 +28,14 @@ public class Clue : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(clueType > 4)
+        if(other.tag == "Player" && clueType > 3)
         {
-            //Update PlayerUI so button dissapears if button is still active
+            other.GetComponent<PlayerStats>().RepairButtOff();
         }
     }
 
     private IEnumerator WaitToActivate()
     {
-        gameObject.GetComponent<SphereCollider>().enabled = false;
-        yield return new WaitForSecondsRealtime(15);
-        gameObject.GetComponent<SphereCollider>().enabled = true;
+        yield return new WaitForSecondsRealtime(5);
     }
 }
