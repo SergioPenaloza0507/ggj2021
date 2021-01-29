@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField]private int[] clues;
+    [SerializeField] private UIManager UI;
     int life, wood;
     GameObject spot;
 
@@ -25,8 +26,8 @@ public class PlayerStats : MonoBehaviour
     {
         if(clue < 4)
         {
-            //UI about clue and pause game
             clues[clue]++;
+            UI.NewHint(clue, clues[clue]);
             if (clues[clue] == 4)
             {
                 //ActivateClueToEnd
@@ -34,7 +35,7 @@ public class PlayerStats : MonoBehaviour
         }
         else
         {
-            //UI to RepairShip
+            UI.RepairButt(wood > 2);
         }
     }
 
@@ -60,11 +61,8 @@ public class PlayerStats : MonoBehaviour
 
     public void RepairShip()
     {
-        if(wood > 3)
-        {
-            wood = wood - 3;
-            life = 3;
-        }
+        wood = wood - 3;
+        life = 3;
     }
 
     public void TakeDamage(int amount)

@@ -15,6 +15,7 @@ public class Clue : MonoBehaviour
             if (clueType < 5)
             {
                 other.GetComponent<PlayerStats>().GetClue(clueType);
+                StartCoroutine("WaitToActivate");
                 if (clueType < 4)
                     clueType = 4;
             }
@@ -29,5 +30,12 @@ public class Clue : MonoBehaviour
         {
             //Update PlayerUI so button dissapears if button is still active
         }
+    }
+
+    private IEnumerator WaitToActivate()
+    {
+        gameObject.GetComponent<SphereCollider>().enabled = false;
+        yield return new WaitForSecondsRealtime(15);
+        gameObject.GetComponent<SphereCollider>().enabled = true;
     }
 }
