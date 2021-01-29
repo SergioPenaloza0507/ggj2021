@@ -14,6 +14,7 @@ public class ShipController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        cumulativeMotion = new Vector2();
     }
 
     private void Update()
@@ -29,25 +30,23 @@ public class ShipController : MonoBehaviour
     {
         Vector2 motion = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         cumulativeMotion += motion;
-        Vector3 projectedForward = (transform.position + Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up)).normalized * motion.y;
-        Quaternion rotator = Quaternion.Euler(0, cumulativeMotion.x, 0);
-        projectedForward = rotator * projectedForward;
-        Debug.DrawLine(transform.position, transform.position + projectedForward,Color.black,0.1f);
-        SteeringMotion(projectedForward);
-        ForwardMotion(projectedForward);
+        var proj = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up) * motion.y;
+        Debug.DrawLine(rb.position,rb.position + proj * 10, Color.black,0.1f);
+        SteeringMotion(proj);
+        ForwardMotion(proj);
     }
 
     private void SteeringMotion(Vector3 forward)
     {
         if (forward.magnitude > 0)
         {
-            var targetRotation = Quaternion.LookRotation(rb.position + forward, Vector3.up);
+            var targetRotation = Quaternion.LookRotation(forward, Vector3.up);
             rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRotation, Time.deltaTime * steeringSpeed));
         }
     }
 
     private void ForwardMotion(Vector3 forward)
     {
-        rb.MovePosition(rb.position + Mathf.Lerp(0, 1, 1 - (Mathf.Abs(Vector3.SignedAngle(transform.forward, forward, Vector3.up)) / 360)) * forward * forwardSpeed * Time.deltaTime);
+        rb.MovePosition(rb.position + forward * Mathf.Lerp(0,1,1 - Mathf.Abs(Vector3.SignedAngle(transform.forward,forward,transform.up)) / 360) * forwardSpeed * Time.deltaTime);
     }
 }
