@@ -5,15 +5,15 @@ using UnityEngine;
 public abstract class SelectorNode : BhNode
 {
     [SerializeField] BhNode positiveChild, negativeChild;
-    public override bool Execute()
+    public override bool Execute(BhForwardedData data)
     {
         if (CheckCondition())
         {
-            return positiveChild.Execute();
+            return positiveChild.Execute(data);
         }
         else 
         {
-            return negativeChild.Execute();
+            return negativeChild.Execute(data);
         }
     }
 

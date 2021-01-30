@@ -2,5 +2,5 @@ using UnityEngine;
 
 public abstract class BhNode : MonoBehaviour
 {
-    public abstract bool Execute();
+    public abstract bool Execute(BhForwardedData data);
 }
