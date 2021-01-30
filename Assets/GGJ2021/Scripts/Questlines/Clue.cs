@@ -18,8 +18,6 @@ public class Clue : MonoBehaviour
             {
                 other.GetComponent<PlayerStats>().GetClue(clueType, step);
                 StartCoroutine("WaitToActivate");
-                if (clueType < 4)
-                    clueType = 4;
             }
             else
                 other.GetComponent<PlayerStats>().DiveUI(gameObject, clueType);

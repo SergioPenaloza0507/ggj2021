@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] GameObject hint, repairScreen, diveButt, Die, WinButt;
+    [SerializeField] GameObject hint, repairScreen, diveButt, Die, WinButt, life;
+    private Image[] hearts;
     [SerializeField] Text[] questLine;
-    [SerializeField] Text wood, life;
+    [SerializeField] Text wood;
     [SerializeField] PlayerStats stats;
 
     public GameObject RepairScreen { get => repairScreen; set => repairScreen = value; }
@@ -15,7 +16,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-
+        //hearts = life.GetComponentsInChildren<Image>();
     }
 
     // Update is called once per frame
