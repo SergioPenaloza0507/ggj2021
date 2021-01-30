@@ -72,6 +72,9 @@ public class PlayerStats : MonoBehaviour
         if (amount > life)
             amount = life;
         life = life - amount;
+        {
+            UI.UpdateLife(life);
+        }
         if(life == 0)
         {
             //Game Over Screen

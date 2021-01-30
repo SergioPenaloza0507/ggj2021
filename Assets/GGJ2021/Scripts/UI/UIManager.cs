@@ -16,13 +16,26 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        //hearts = life.GetComponentsInChildren<Image>();
+        hearts = life.GetComponentsInChildren<Image>();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void UpdateLife(int hp)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if(i<hp)
+            {
+                hearts[i].gameObject.SetActive(true);
+            }
+            else
+                hearts[i].gameObject.SetActive(false);
+        }
     }
 
     public void NewHint(int questType, int clues)
