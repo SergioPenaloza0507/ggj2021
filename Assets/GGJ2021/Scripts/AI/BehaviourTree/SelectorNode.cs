@@ -7,7 +7,7 @@ public abstract class SelectorNode : BhNode
     [SerializeField] BhNode positiveChild, negativeChild;
     public override bool Execute(BhForwardedData data)
     {
-        if (CheckCondition())
+        if (CheckCondition(data))
         {
             return positiveChild.Execute(data);
         }
@@ -17,5 +17,5 @@ public abstract class SelectorNode : BhNode
         }
     }
 
-    protected abstract bool CheckCondition();
+    protected abstract bool CheckCondition(BhForwardedData data);
 }

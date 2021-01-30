@@ -4,16 +4,32 @@ using UnityEngine;
 
 public class AIAgent : MonoBehaviour
 {
-    Composite composite;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] float forwardInterval;
+    [SerializeField] SingleParentNode composite;
+
+    float timer;
+
+    [SerializeField] GameObject roammingTracker;
+
+    BhForwardedData data;
+
+    private void Awake()
     {
-        
+        data = new BhForwardedData();
+        data.SetValue("RoamingTracker", roammingTracker);
+        roammingTracker.transform.parent = null;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (!GameController.Instance.paused)
+        {
+            timer += Time.deltaTime;
+            if(timer >= forwardInterval)
+            {
+                composite.Execute(data);
+                timer = 0;
+            }
+        }
     }
 }
