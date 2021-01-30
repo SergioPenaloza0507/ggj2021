@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AIAgent : MonoBehaviour
 {
+    Composite composite;
     // Start is called before the first frame update
     void Start()
     {
