@@ -12,12 +12,11 @@ public class Clue : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (DayNight.Instance.IsDay && other.tag == "Player")
         {
             if (clueType < 5)
             {
                 other.GetComponent<PlayerStats>().GetClue(clueType, step);
-                StartCoroutine("WaitToActivate");
             }
             else
                 other.GetComponent<PlayerStats>().DiveUI(gameObject, clueType);
@@ -26,14 +25,9 @@ public class Clue : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Player" && clueType > 3)
+        if(other.tag == "Player")
         {
             other.GetComponent<PlayerStats>().RepairButtOff();
         }
-    }
-
-    private IEnumerator WaitToActivate()
-    {
-        yield return new WaitForSecondsRealtime(5);
     }
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField]private int[] clues;
+    private int[] clues;
     [SerializeField] private UIManager UI;
-    int life, wood;
+    [SerializeField] int life, wood;
     GameObject spot;
 
     public int Wood { get => wood; set => wood = value; }
@@ -14,6 +14,7 @@ public class PlayerStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        wood = 7;
         clues = new int[4];
         for (int i = 0; i < 4; i++)
         {
@@ -65,6 +66,8 @@ public class PlayerStats : MonoBehaviour
     {
         wood = 0;
         life++;
+        UI.UpdateLifeBar(life);
+        UI.Wood.gameObject.SetActive(false);
     }
 
     public void TakeDamage(int amount)
@@ -72,6 +75,7 @@ public class PlayerStats : MonoBehaviour
         if (amount > life)
             amount = life;
         life = life - amount;
+        UI.UpdateLifeBar(life);
         if(life == 0)
         {
             //Game Over Screen

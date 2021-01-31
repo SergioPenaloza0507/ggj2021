@@ -5,18 +5,18 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] GameObject hint, repairScreen, diveButt, Die, WinButt, life;
+    [SerializeField] GameObject hint, repairScreen, diveButt, Die, WinButt, life, wood;
     private Image[] hearts;
     [SerializeField] Text[] questLine;
-    [SerializeField] Text wood;
     [SerializeField] PlayerStats stats;
 
     public GameObject RepairScreen { get => repairScreen; set => repairScreen = value; }
+    public GameObject Wood { get => wood; set => wood = value; }
 
     // Start is called before the first frame update
     private void Start()
     {
-        //hearts = life.GetComponentsInChildren<Image>();
+        hearts = life.GetComponentsInChildren<Image>();
     }
 
     // Update is called once per frame
@@ -30,6 +30,17 @@ public class UIManager : MonoBehaviour
         hint.SetActive(true);
         hint.GetComponentInChildren<Text>().text = "You found a clue on the questline:\n\n" + (questType + 1).ToString() + "\n\nTry to find the other ones";
         questLine[questType].text = clues.ToString();
+    }
+
+    public void UpdateLifeBar(int left)
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            if (i < left)
+                hearts[i].gameObject.SetActive(true);
+            else
+                hearts[i].gameObject.SetActive(false);
+        }
     }
 
     public void RepairButt(bool canRepair)
