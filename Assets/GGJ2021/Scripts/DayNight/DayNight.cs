@@ -31,7 +31,6 @@ public class DayNight : MonoBehaviour
         }
     }
 
-
     private static void DestroyAllNonInstances()
     {
         foreach (var go in FindObjectsOfType<DayNight>())
@@ -49,8 +48,7 @@ public class DayNight : MonoBehaviour
 
     bool isDay;
 
-    
-
+    [SerializeField] private Spawner spawn;
     [SerializeField] private float dayTime;
     [SerializeField] private float nightTime;
 
@@ -76,12 +74,14 @@ public class DayNight : MonoBehaviour
         if(isDay)
         {
             RenderSettings.skybox = dayMat;
+            spawn.StartDay();
             yield return new WaitForSecondsRealtime(dayTime);
         }
 
         else
         {
             RenderSettings.skybox = night;
+            spawn.SpawnNight();
             yield return new WaitForSecondsRealtime(nightTime);
         }
 

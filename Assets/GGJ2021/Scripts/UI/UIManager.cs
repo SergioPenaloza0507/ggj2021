@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] GameObject hint, repairScreen, diveButt, Die, WinButt, life, wood;
+    [SerializeField] GameObject hint, repairScreen, diveButt, Die, winButt, life, wood;
     private Image[] hearts;
     [SerializeField] Text[] questLine;
     [SerializeField] PlayerStats stats;
 
     public GameObject RepairScreen { get => repairScreen; set => repairScreen = value; }
     public GameObject Wood { get => wood; set => wood = value; }
+    public GameObject WinButt { get => winButt; set => winButt = value; }
+    public GameObject DiveButt { get => diveButt; set => diveButt = value; }
 
     // Start is called before the first frame update
     private void Start()
@@ -52,5 +54,16 @@ public class UIManager : MonoBehaviour
         }
         else
             repairScreen.GetComponent<Button>().interactable = false;
+    }
+
+    public void DiveOpt(bool canDive)
+    {
+        DiveButt.SetActive(true);
+        if (canDive)
+        {
+            DiveButt.GetComponent<Button>().interactable = true;
+        }
+        else
+            DiveButt.GetComponent<Button>().interactable = false;
     }
 }
