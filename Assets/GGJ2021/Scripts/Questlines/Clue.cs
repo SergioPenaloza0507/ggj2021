@@ -18,8 +18,10 @@ public class Clue : MonoBehaviour
             {
                 other.GetComponent<PlayerStats>().GetClue(clueType, step);
             }
-            else
-                other.GetComponent<PlayerStats>().DiveUI(gameObject, clueType);
+        }
+        else if (!DayNight.Instance.IsDay && clueType >= 5 && other.tag == "Player")
+        {
+            other.GetComponent<PlayerStats>().DiveUI(clueType);
         }
     }
 
@@ -27,7 +29,7 @@ public class Clue : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            other.GetComponent<PlayerStats>().RepairButtOff();
+            other.GetComponent<PlayerStats>().ButtsOff();
         }
     }
 }
